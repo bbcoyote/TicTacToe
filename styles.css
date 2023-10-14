@@ -17,6 +17,32 @@ body {
   background-color: antiquewhite;
 }
 
+.title {
+  /* margin: 1.5rem 0; */
+  font-size: 5rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.header div {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn {
+  min-width: 5rem;
+}
+
+.start-btn {
+  margin-top: 1rem;
+  align-self: center;
+  font-size: 1.2rem;
+}
+
 .flex-container {
   display: flex;
   justify-content: center;

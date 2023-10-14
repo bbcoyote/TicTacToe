@@ -8,21 +8,28 @@
     <title>TicTacToe</title>
   </head>
   <body>
-    <header>
-      <h1>TicTacToe</h1>
-      <button type="button" id="start-btn">START GAME!</button>
+    <header class="header">
+      <h1 class="title">TicTacToe</h1>
+      <span>Choose Your Class</span>
+      <div>
+        <button class="btn" type="button" id="player-1">X's</button>
+        <button class="btn" type="button" id="player-2">O's</button>
+      </div>
+      <button class="start-btn" type="button" id="start-btn">
+        START GAME!
+      </button>
     </header>
     <div class="flex-container">
       <div class="grid-container">
-        <div class="top-left square" id="top-left"></div>
-        <div class="top-middle square" id="top-middle"></div>
-        <div class="top-right square" id="top-right"></div>
-        <div class="middle-left square" id="middle-left"></div>
-        <div class="middle-middle square" id="middle-middle"></div>
-        <div class="middle-right square" id="middle-right"></div>
-        <div class="bottom-left square" id="bottom-left"></div>
-        <div class="bottom-middle square" id="bottom-middle"></div>
-        <div class="bottom-right square" id="bottom-right"></div>
+        <div class="top-left square" id="square"></div>
+        <div class="top-middle square" id="square"></div>
+        <div class="top-right square" id="square"></div>
+        <div class="middle-left square" id="square"></div>
+        <div class="middle-middle square" id="square"></div>
+        <div class="middle-right square" id="square"></div>
+        <div class="bottom-left square" id="square"></div>
+        <div class="bottom-middle square" id="square"></div>
+        <div class="bottom-right square" id="square"></div>
       </div>
     </div>
   </body>

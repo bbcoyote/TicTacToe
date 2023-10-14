@@ -1,20 +1,18 @@
-const startGame = function () {
+const Gameboard = (function () {
   const board = ["", "", "", "", "", "", "", "", ""];
 
-};
+  return { board };
+})();
 
-
-function createPlayer(name, mark) {
-  return { name, mark };
-};
-
-document.getElementById("top-right").addEventListener("click", () => {
-  const div = document.getElementById("top-right");
-  const markX = document.createElement("h1");
-  markX.textContent = "X";
-
-  div.appendChild(markX);
-});
+function createPlayer(playerName, playerMark) {
+  return {
+    playerName: playerName,
+    playerMark: playerMark,
+    getPlayer() {
+      return playerName + " " + playerMark;
+    },
+  };
+}
 
 /* 
 TicTacToe
