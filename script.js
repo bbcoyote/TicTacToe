@@ -1,6 +1,22 @@
-const chooseClass = document.getElementById("class-btns");
+const X_CLASS = "X";
+const CIRCLE_CLASS = "circle";
 let player1;
 let player2;
+let currentClass;
+let circleTurn;
+const chooseClass = document.getElementById("class-btns");
+const squares = Array.from(document.querySelectorAll("[id^='square']"));
+const winMessage = document.getElementById("win");
+const WINNING_ARRAY = [
+  [0, 1, 2], //horizontal
+  [3, 4, 5], //h
+  [6, 7, 8], //h
+  [0, 3, 6], //vertical
+  [1, 4, 7], //v
+  [2, 5, 8], //v
+  [0, 4, 8], //diagonal
+  [2, 4, 6], //d
+];
 
 const Gameboard = (function () {
   const board = ["", "", "", "", "", "", "", "", ""];
@@ -8,6 +24,17 @@ const Gameboard = (function () {
 
   return { board, player };
 })();
+
+function updateBoard() {
+  squares.forEach((square, index) => {
+    square.classList.remove(X_CLASS, CIRCLE_CLASS);
+    if (Gameboard.board[index] === "X") {
+      square.classList.add(X_CLASS);
+    } else if (Gameboard.board[index] === "O") {
+      square.classList.add(CIRCLE_CLASS);
+    }
+  });
+}
 
 function createPlayer(playerName, playerMark) {
   return {
@@ -19,12 +46,22 @@ function createPlayer(playerName, playerMark) {
   };
 }
 
-const playGame = (function () {
-  // Handle gameplay here.
-  // We will set innderText for each cell with X's and O's here.
-  // We will also checkFor winner each time we place a mark.
-  //
-})();
+//click event function for each square in UI
+function playGame(e) {
+  const square = e.target;
+  currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS;
+  placeMark(square, currentClass);
+  //check for win
+  if (checkWin(currentClass)) {
+    endGame(false);
+    //check for draw
+  } else if (isDraw()) {
+    endGame(true);
+  } else {
+    //switch turns
+    switchTurn();
+  }
+}
 
 chooseClass.addEventListener("click", (event) => {
   if (event.target.id === "player-1") {
@@ -51,8 +88,57 @@ chooseClass.addEventListener("click", (event) => {
       alert("Player 2, (O), has already been chosen!");
     }
   }
+
+  currentClass = player1;
+  updateBoard();
 });
 
+function placeMark(square, currentClass) {
+  square.classList.add(currentClass);
+}
+
+squares.forEach((square) => {
+  square.addEventListener("click", playGame, { once: true });
+});
+
+function switchTurn() {
+  circleTurn = !circleTurn;
+  currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS;
+}
+
+function checkWin(currentClass) {
+  return WINNING_ARRAY.some((combination) => {
+    return combination.every((index) => {
+      return squares[index].classList.contains(currentClass);
+    });
+  });
+}
+
+function endGame(draw) {
+  if (draw) {
+    winMessage.textContent = `No more moves! Game is a draw`;
+    document.getElementById("reset").hidden = false;
+  } else {
+    winMessage.textContent = `The Winner is ${
+      circleTurn ? "O's" : "X's"
+    }. Please Play Again 😁`;
+    document.getElementById("reset").hidden = false;
+  }
+}
+
+function isDraw() {
+  return [...squares].every((square) => {
+    return (
+      square.classList.contains(X_CLASS) ||
+      square.classList.contains(CIRCLE_CLASS)
+    );
+  });
+}
+
+//add event listener to each square and call updateBoard as the event function?
+// squares.forEach((square) => {
+//   square.addEventListener("click", playGame, { once: true });
+// });
 /* 
 TicTacToe
 a game on a 3 by 3 square where 2 players mark X's and O's.
