@@ -6,7 +6,10 @@ let currentClass;
 let circleTurn;
 const chooseClass = document.getElementById("class-btns");
 const squares = Array.from(document.querySelectorAll("[id^='square']"));
+const endGameDiv = document.getElementById("end-game");
 const winMessage = document.getElementById("win");
+const startBtn = document.getElementById("start-btn");
+const resetBtn = document.getElementById("reset");
 const WINNING_ARRAY = [
   [0, 1, 2], //horizontal
   [3, 4, 5], //h
@@ -63,6 +66,8 @@ function playGame(e) {
   }
 }
 
+startBtn.addEventListener("click", startGame);
+
 chooseClass.addEventListener("click", (event) => {
   if (event.target.id === "player-1") {
     //here we will call the createPlayer function, set playerName to
@@ -97,9 +102,18 @@ function placeMark(square, currentClass) {
   square.classList.add(currentClass);
 }
 
-squares.forEach((square) => {
-  square.addEventListener("click", playGame, { once: true });
-});
+function startGame() {
+  circleTurn = false;
+  endGameDiv.hidden = true;
+  squares.forEach((square) => {
+    square.classList.remove(X_CLASS);
+    square.classList.remove(CIRCLE_CLASS);
+    square.removeEventListener("click", playGame);
+  });
+  squares.forEach((square) => {
+    square.addEventListener("click", playGame, { once: true });
+  });
+}
 
 function switchTurn() {
   circleTurn = !circleTurn;
@@ -123,6 +137,7 @@ function endGame(draw) {
       circleTurn ? "O's" : "X's"
     }. Please Play Again 😁`;
     document.getElementById("reset").hidden = false;
+    endGameDiv.hidden = false;
   }
 }
 
@@ -134,6 +149,10 @@ function isDraw() {
     );
   });
 }
+
+resetBtn.addEventListener("click", () => {
+  startGame();
+});
 
 //add event listener to each square and call updateBoard as the event function?
 // squares.forEach((square) => {
