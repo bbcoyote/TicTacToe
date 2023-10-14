@@ -116,3 +116,43 @@ body {
   grid-column: 3;
   grid-row: 3;
 }
+
+.square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.square.X::before,
+.square.X::after {
+  content: " ";
+  position: absolute;
+  width: 3rem;
+  height: 0.2rem;
+  background-color: black;
+}
+
+.square.X::before {
+  transform: rotate(45deg);
+}
+
+.square.X::after {
+  transform: rotate(-45deg);
+}
+
+.square.circle::before,
+.square.circle::after {
+  content: " ";
+  position: absolute;
+  border-radius: 50%;
+  background-color: black;
+}
+
+.square.circle::before {
+  width: 4rem;
+  height: 4rem;
+}
+
+.end-message {
+  margin-left: 2rem;
+}

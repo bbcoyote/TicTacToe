@@ -132,6 +132,7 @@ function endGame(draw) {
   if (draw) {
     winMessage.textContent = `No more moves! Game is a draw`;
     document.getElementById("reset").hidden = false;
+    endGameDiv.hidden = false;
   } else {
     winMessage.textContent = `The Winner is ${
       circleTurn ? "O's" : "X's"
